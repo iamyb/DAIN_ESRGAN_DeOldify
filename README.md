@@ -5,9 +5,10 @@ The purpose of this project is to integrate [DAIN](https://github.com/baowenbo/D
 # How to use 
 Clone the repo and it's dependecies. 
 ```
-git clone
+git clone --recursive https://github.com/iamyb/DAIN_ESRGAN_DeOldify.git
 ```
 
+## Setup ENV by Docker   
 Build the docker image. It need take some time to pull all its dependencies.  
 ```
 docker build -t dain_esrgan_deoldify .
@@ -23,6 +24,7 @@ Login the container
 docker exec -it dain_esrgan_deoldify /bin/bash
 ```
 
+## Usage 
 Run the example, you can check the result in folder data/output  
 ```
 python run.py -i shanghai1937.mp4
