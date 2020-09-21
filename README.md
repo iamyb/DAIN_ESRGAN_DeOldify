@@ -1,4 +1,4 @@
-# DAIN_ESRGAN_DEOLDIFY
+# DAIN_ESRGAN_DeOldify
 
 The purpose of this project is to integrate [DAIN](https://github.com/baowenbo/DAIN), [ESRGAN](https://github.com/xinntao/ESRGAN) and [DEOLDIFY](https://github.com/jantic/DeOldify) into an assembly line which can support video frame interplation/super resolution/colorization in a single runtime environment. Thanks for the great work of those open source repos. 
 
