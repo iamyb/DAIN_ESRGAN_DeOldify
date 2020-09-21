@@ -8,7 +8,7 @@ Clone the repo and it's dependecies.
 git clone --recursive https://github.com/iamyb/DAIN_ESRGAN_DeOldify.git
 ```
 
-## Setup ENV by Docker   
+## Setup 
 Build the docker image. It need take some time to pull all its dependencies.  
 ```
 docker build -t dain_esrgan_deoldify .
