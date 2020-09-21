@@ -1,0 +1,9 @@
+[submodule "DAIN"]
+	path = DAIN
+	url = https://github.com/baowenbo/DAIN.git
+[submodule "ESRGAN"]
+	path = ESRGAN
+	url = https://github.com/xinntao/ESRGAN.git
+[submodule "DeOldify"]
+	path = DeOldify
+	url = https://github.com/jantic/DeOldify.git

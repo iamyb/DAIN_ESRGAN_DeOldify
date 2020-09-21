@@ -1,0 +1,102 @@
+diff --git a/deoldify/_device.py b/deoldify/_device.py
+index 424e3d1..cf1c33c 100644
+--- a/deoldify/_device.py
++++ b/deoldify/_device.py
+@@ -9,7 +9,8 @@ class DeviceException(Exception):
+ 
+ class _Device:
+     def __init__(self):
+-        self.set(DeviceId.CPU)
++#        self.set(DeviceId.CPU)
++        self.set(DeviceId.GPU0)
+ 
+     def is_gpu(self):
+         ''' Returns `True` if the current device is GPU, `False` otherwise. '''
+@@ -28,4 +29,4 @@ class _Device:
+         
+         os.environ['OMP_NUM_THREADS']='1'
+         self._current_device = device    
+-        return device
+\ No newline at end of file
++        return device
+diff --git a/deoldify/dataset.py b/deoldify/dataset.py
+index 316d434..7116095 100644
+--- a/deoldify/dataset.py
++++ b/deoldify/dataset.py
+@@ -5,6 +5,10 @@ from fastai.vision.transform import get_transforms
+ from fastai.vision.data import ImageImageList, ImageDataBunch, imagenet_stats
+ from .augs import noisify
+ 
++import os
++cur_path = os.path.dirname(os.path.realpath(__file__))
++root_path = os.path.dirname(cur_path)
++
+ 
+ def get_colorize_data(
+     sz: int,
+@@ -42,7 +46,7 @@ def get_colorize_data(
+ 
+ 
+ def get_dummy_databunch() -> ImageDataBunch:
+-    path = Path('./dummy/')
++    path = Path(os.path.join(root_path, 'dummy'))
+     return get_colorize_data(
+         sz=1, bs=1, crappy_path=path, good_path=path, keep_pct=0.001
+     )
+diff --git a/deoldify/visualize.py b/deoldify/visualize.py
+index f2667ce..7e91146 100644
+--- a/deoldify/visualize.py
++++ b/deoldify/visualize.py
+@@ -19,6 +19,9 @@ from IPython.display import HTML
+ from IPython.display import Image as ipythonimage
+ import cv2
+ 
++import os
++cur_path = os.path.dirname(os.path.realpath(__file__))
++root_path = os.path.dirname(cur_path)
+ 
+ # adapted from https://www.pyimagesearch.com/2016/04/25/watermarking-images-with-opencv-and-python/
+ def get_watermarked(pil_image: Image) -> Image:
+@@ -158,7 +161,7 @@ class ModelImageVisualizer:
+         )
+ 
+     def _save_result_image(self, source_path: Path, image: Image) -> Path:
+-        result_path = self.results_dir / source_path.name
++        result_path = os.path.join(self.results_dir, source_path.name)
+         image.save(result_path)
+         return result_path
+ 
+@@ -268,6 +271,20 @@ class VideoColorizer:
+                 )
+                 color_image.save(str(colorframes_folder / img))
+ 
++    def colorize_esrgan_frames(self, source_path, target_path, post_process: bool = True, watermarked: bool = True):
++        colorframes_folder = Path(target_path)
++        colorframes_folder.mkdir(parents=True, exist_ok=True)
++        self._purge_images(colorframes_folder)
++
++        for img in progress_bar(os.listdir(str(source_path))):
++            img_path = os.path.join(source_path , img)
++
++            if os.path.isfile(str(img_path)):
++                color_image = self.vis.get_transformed_image(
++                    str(img_path), render_factor=21, post_process=post_process,watermarked=watermarked
++                )
++                color_image.save(str(colorframes_folder / img))
++
+     def _build_video(self, source_path: Path) -> Path:
+         colorized_path = self.result_folder / (
+             source_path.name.replace('.mp4', '_no_audio.mp4')
+@@ -372,9 +389,10 @@ def get_artistic_video_colorizer(
+ 
+ 
+ def get_stable_video_colorizer(
+-    root_folder: Path = Path('./'),
++    #root_folder: Path = Path('./'),
++    root_folder: Path = Path(root_path),
+     weights_name: str = 'ColorizeVideo_gen',
+-    results_dir='result_images',
++    results_dir=os.path.join(root_path, 'result_images'),
+     render_factor: int = 21
+ ) -> VideoColorizer:
+     learn = gen_inference_wide(root_folder=root_folder, weights_name=weights_name)

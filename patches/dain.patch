@@ -1,0 +1,133 @@
+diff --git a/MegaDepth/options/base_options.py b/MegaDepth/options/base_options.py
+index ec8dc2c..457a730 100644
+--- a/MegaDepth/options/base_options.py
++++ b/MegaDepth/options/base_options.py
+@@ -1,6 +1,9 @@
+ import argparse
+ import os
+ from ..util import util
++cur_path = os.path.dirname(os.path.realpath(__file__))
++tmp_path = os.path.dirname(cur_path)
++root_path = os.path.dirname(tmp_path)
+ 
+ class BaseOptions():
+     def __init__(self):
+@@ -27,7 +30,7 @@ class BaseOptions():
+                                  help='chooses which model to use. cycle_gan, one_direction_test, pix2pix, ...')
+         # self.parser.add_argument('--which_direction', type=str, default='AtoB', help='AtoB or BtoA')
+         self.parser.add_argument('--nThreads', default=2, type=int, help='# threads for loading data')
+-        self.parser.add_argument('--checkpoints_dir', type=str, default='./checkpoints/', help='models are saved here')
++        self.parser.add_argument('--checkpoints_dir', type=str, default=os.path.join(root_path,'checkpoints'), help='models are saved here')
+         self.parser.add_argument('--norm', type=str, default='instance', help='instance normalization or batch normalization')
+         self.parser.add_argument('--serial_batches', action='store_true', help='if true, takes images in order to make batches, otherwise takes them randomly')
+         self.parser.add_argument('--display_winsize', type=int, default=256,  help='display window size')
+diff --git a/PWCNet/correlation_package_pytorch1_0/build.sh b/PWCNet/correlation_package_pytorch1_0/build.sh
+index f26b66e..dbfb7c2 100755
+--- a/PWCNet/correlation_package_pytorch1_0/build.sh
++++ b/PWCNet/correlation_package_pytorch1_0/build.sh
+@@ -1,7 +1,7 @@
+ #!/usr/bin/env bash
+ 
+ echo "Need pytorch>=1.0.0"
+-source activate pytorch1.0.0
++#source activate pytorch1.0.0
+ 
+ export PYTHONPATH=$PYTHONPATH:$(pwd)/../../my_package
+ 
+diff --git a/demo_MiddleBury.py b/demo_MiddleBury.py
+index 82a6b71..2feddc7 100644
+--- a/demo_MiddleBury.py
++++ b/demo_MiddleBury.py
+@@ -1,8 +1,8 @@
+ import time
+ import os
++import torch
+ from torch.autograd import Variable
+ import math
+-import torch
+ 
+ import random
+ import numpy as np
+diff --git a/demo_MiddleBury_slowmotion.py b/demo_MiddleBury_slowmotion.py
+index 2bb4293..c44211f 100644
+--- a/demo_MiddleBury_slowmotion.py
++++ b/demo_MiddleBury_slowmotion.py
+@@ -183,4 +183,4 @@ if DO_MiddleBurryOther:
+         count = count + 1
+ 
+ 
+-         
+\ No newline at end of file
++         
+diff --git a/my_args.py b/my_args.py
+index e84224c..2d0c35d 100644
+--- a/my_args.py
++++ b/my_args.py
+@@ -4,6 +4,8 @@ import argparse
+ import numpy
+ import networks
+ import  torch
++root_path = os.path.dirname(os.path.realpath(__file__))
++
+ modelnames =  networks.__all__
+ # import datasets
+ datasetNames = ('Vimeo_90K_interp') #datasets.__all__
+@@ -81,9 +83,11 @@ if args.uid == None:
+     print("revise the unique id to a random numer " + str(unique_id))
+     args.uid = unique_id
+     timestamp = datetime.datetime.now().strftime("%a-%b-%d-%H-%M")
+-    save_path = './model_weights/'+ args.uid  +'-' + timestamp
++    #save_path = './model_weights/'+ args.uid  +'-' + timestamp
++    save_path = os.path.join(root_path, 'model_weights', args.uid  +'-' + timestamp)
+ else:
+-    save_path = './model_weights/'+ str(args.uid)
++    #save_path = './model_weights/'+ str(args.uid)
++    save_path = os.path.join(root_path, 'model_weights', str(args.uid))
+ 
+ # print("no pth here : " + save_path + "/best"+".pth")
+ if not os.path.exists(save_path + "/best"+".pth"):
+diff --git a/my_package/build.sh b/my_package/build.sh
+index 30fe202..c229d8e 100755
+--- a/my_package/build.sh
++++ b/my_package/build.sh
+@@ -1,7 +1,7 @@
+ #!/usr/bin/env bash
+ 
+ echo "Need pytorch>=1.0.0"
+-source activate pytorch1.0.0
++#source activate pytorch1.0.0
+ 
+ export PYTHONPATH=$PYTHONPATH:$(pwd)
+ 
+diff --git a/my_package/clean.sh b/my_package/clean.sh
+index 32a0c0f..52e9144 100755
+--- a/my_package/clean.sh
++++ b/my_package/clean.sh
+@@ -1,7 +1,7 @@
+ #!/usr/bin/env bash
+ 
+ echo "Need pytorch>=1.0.0"
+-source activate pytorch1.0.0
++#source activate pytorch1.0.0
+ 
+ cd MinDepthFlowProjection
+ rm -rf build *.egg-info dist
+diff --git a/my_package/compiler_args.py b/my_package/compiler_args.py
+index 7451c0c..a4f4786 100644
+--- a/my_package/compiler_args.py
++++ b/my_package/compiler_args.py
+@@ -41,10 +41,10 @@ nvcc_args = [
+     # Jetson: (None)
+     '-gencode', 'arch=compute_75,code=sm_75',
+ 
+-    # '-gencode', 'arch=compute_70,code=sm_70',
+-    # '-gencode', 'arch=compute_70,code=compute_70'
++    '-gencode', 'arch=compute_70,code=sm_70',
++    #'-gencode', 'arch=compute_70,code=compute_70'
+ 
+     '-w' # Ignore compiler warnings.
+ ]
+ 
+-cxx_args = ['-std=c++11', '-w']
+\ No newline at end of file
++cxx_args = ['-std=c++11', '-w']
