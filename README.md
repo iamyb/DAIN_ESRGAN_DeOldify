@@ -35,7 +35,7 @@ If you want to test your own video, please put it into data/input/your_video.mp4
 python run.py -i your_video.mp4  
 ```
 
-By default, DAIN, ESRGAN and DEOLDIFY will be processed in sequence. If you want to customize the steps, you can use '-p' parameter:
+By default, DAIN, ESRGAN and DeOldify will be processed in sequence. If you want to customize the steps, you can use '-p' parameter:
 ```
 python run.py -i your_video.mp4 -p dain,deoldify,build
 python run.py -i your_video.mp4 -p esrgan,build
