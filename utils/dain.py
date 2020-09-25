@@ -179,7 +179,7 @@ def dain(target, net_name='DAIN_slowmotion', time_step=0.5, cleanup=True):
         shutil.rmtree(raw_image_path)
 
 if __name__ == "__main__":
-    dain('shanghai_test.mp4')
+    dain('shanghai1937.mp4')
 
 
          

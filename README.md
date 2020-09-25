@@ -1,6 +1,6 @@
 # DAIN_ESRGAN_DeOldify
 
-The purpose of this project is to integrate [DAIN](https://github.com/baowenbo/DAIN), [ESRGAN](https://github.com/xinntao/ESRGAN) and [DEOLDIFY](https://github.com/jantic/DeOldify) into an assembly line which can support video frame interplation/super resolution/colorization in a single runtime environment. Thanks for the great work of those open source repos. 
+The purpose of this project is to build a video processing pipeline for video frame interplation, super resolution and colorization, based on open source project [DAIN](https://github.com/baowenbo/DAIN), [ESRGAN](https://github.com/xinntao/ESRGAN) and [DEOLDIFY](https://github.com/jantic/DeOldify) and their pre-trained models. Thanks for the great work of those repos. It uses docker to setup runtime environment and requires GPU support by default.
 
 # How to use 
 Clone the repo and it's dependecies. 

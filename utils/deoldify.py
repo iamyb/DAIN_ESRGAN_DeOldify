@@ -52,5 +52,5 @@ def deoldify(target, cleanup=True):
         shutil.rmtree(esrgan_image_path)
 
 if __name__ == '__main__':
-    deoldify('shanghai_test.mp4')
+    deoldify('shanghai1937.mp4')
 

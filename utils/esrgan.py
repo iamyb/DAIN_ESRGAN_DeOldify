@@ -69,5 +69,5 @@ def esrgan(target, cleanup=True):
         shutil.rmtree(dain_image_path)
 
 if __name__ == "__main__":
-    esrgan('shanghai_test.mp4')
+    esrgan('shanghai1937.mp4')
 
