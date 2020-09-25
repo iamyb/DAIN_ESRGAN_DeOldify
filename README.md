@@ -2,7 +2,7 @@
 
 The purpose of this project is to build a video processing pipeline for video frame interplation, super resolution and colorization, based on open source project [DAIN](https://github.com/baowenbo/DAIN), [ESRGAN](https://github.com/xinntao/ESRGAN) and [DEOLDIFY](https://github.com/jantic/DeOldify) and their pre-trained models. Thanks for the great work of those repos.   
 
-It uses docker to setup runtime environment and requires GPU support by default.
+It uses docker to setup runtime environment and requires GPU support by default. You may need to specify addtional [nvcc compilation target](https://github.com/baowenbo/DAIN/blob/0e38076069a0aa4e68a6fdbf1aa71676a16b34c0/my_package/compiler_args.py) to build [DAIN](https://github.com/baowenbo/DAIN) pytorch extension, depends on your GPU models. Please check https://developer.nvidia.com/cuda-gpus. 
 
 # How to use 
 Clone the repo and it's dependecies. 
