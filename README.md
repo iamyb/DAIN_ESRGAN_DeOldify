@@ -2,7 +2,7 @@
 
 The purpose of this project is to build a video processing pipeline for video frame interplation, super resolution and colorization, based on open source project [DAIN](https://github.com/baowenbo/DAIN), [ESRGAN](https://github.com/xinntao/ESRGAN) and [DEOLDIFY](https://github.com/jantic/DeOldify) and their pre-trained models. Thanks for the great work of those repos.   
 
-It uses docker to setup runtime environment and requires GPU support. You may need to specify addtional [nvcc compilation target](https://github.com/baowenbo/DAIN/blob/0e38076069a0aa4e68a6fdbf1aa71676a16b34c0/my_package/compiler_args.py) to build [DAIN](https://github.com/baowenbo/DAIN) pytorch extension, depends on your GPU models(You can change it by patch/dain.patch). Please check the [offical site](https://developer.nvidia.com/cuda-gpus). 
+It uses docker to setup runtime environment and requires GPU support. You may need to specify addtional [nvcc compilation target](https://github.com/baowenbo/DAIN/blob/0e38076069a0aa4e68a6fdbf1aa71676a16b34c0/my_package/compiler_args.py) to build [DAIN](https://github.com/baowenbo/DAIN) pytorch extension, depends on your GPU models(You can change it by patch/dain.patch). Please check nvidia [offical site](https://developer.nvidia.com/cuda-gpus). 
 
 # How to use 
 Clone the repo and it's dependecies. 
@@ -44,3 +44,5 @@ python run.py -i your_video.mp4 -p esrgan,build
 ```
 The 'build' step here is used to combine the final frames into a video.
 
+# Samples 
+[Late Qing Dynasty(1908) History Video](https://www.bilibili.com/s/video/BV1kp4y1a77G), [Shanghai Sihang Warehouse Battle(1937) History Video](https://www.bilibili.com/video/BV1ty4y1y775)
