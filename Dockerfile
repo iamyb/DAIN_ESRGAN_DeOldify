@@ -32,7 +32,7 @@ RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
 RUN apt-get update && apt-get install -y ffmpeg
 RUN mkdir -p /root/.torch/models && wget https://download.pytorch.org/models/resnet101-5d3b4d8f.pth -O /root/.torch/models/resnet101-5d3b4d8f.pth
 RUN wget http://vllab1.ucmerced.edu/~wenbobao/DAIN/best.pth -O best.pth
-RUN wget https://www.dropbox.com/s/336vn9y4qwyg9yz/ColorizeVideo_gen.pth?dl=0 -O ColorizeVideo_gen.pth
+RUN wget https://data.deepai.org/deoldify/ColorizeVideo_gen.pth -O ColorizeVideo_gen.pth
 RUN wget --no-check-certificate -r 'https://docs.google.com/uc?export=download&id=1TPrz5QKd8DHHt1k8SRtm6tMiPjz_Qene' -O RRDB_ESRGAN_x4.pth
 
 ARG CONDA_DEFAULT_ENV=ded
